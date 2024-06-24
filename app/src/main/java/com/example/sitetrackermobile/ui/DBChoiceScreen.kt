@@ -21,15 +21,17 @@ import androidx.compose.ui.window.Popup
 import androidx.navigation.compose.rememberNavController
 import com.example.sitetrackermobile.ui.theme.SiteTrackerMobileTheme
 import com.example.sitetrackermobile.api.RetrofitClient
+import com.example.sitetrackermobile.viewmodel.SharedViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 @Composable
-fun DbChoiceScreen(navController: NavHostController, context: Context) {
+fun DbChoiceScreen(
+    navController: NavHostController,
+    context: Context,
+    sharedViewModel: SharedViewModel
+) {
     var expanded by remember { mutableStateOf(false) }
     var selectedOption by remember { mutableStateOf("Bitte wählen") }
     var textFieldSize by remember { mutableStateOf(IntSize.Zero) }
@@ -113,7 +115,8 @@ fun DbChoiceScreen(navController: NavHostController, context: Context) {
                     if (selectedOption == "Bitte wählen") {
                         showPopup = true
                     } else {
-                        navController.navigate("spchoice")
+                        sharedViewModel.setSelectedTopLevelProject(selectedOption)
+                        navController.navigate("siteSearch")
                     }
                 },
                 modifier = Modifier.fillMaxWidth()
@@ -149,7 +152,7 @@ fun DbChoiceScreen(navController: NavHostController, context: Context) {
 @Composable
 fun DbChoiceScreenPreview() {
     SiteTrackerMobileTheme {
-        DbChoiceScreen(rememberNavController(), LocalContext.current)
+        DbChoiceScreen(rememberNavController(), LocalContext.current, SharedViewModel())
     }
 }
 
