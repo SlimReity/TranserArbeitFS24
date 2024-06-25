@@ -68,7 +68,7 @@ fun DbChoiceScreen(
                 .align(Alignment.Center),
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "Welcome to DbChoice Screen")
+            Text(text = "Projekte")
             Spacer(modifier = Modifier.height(16.dp))
 
             // Dropdown Menu
